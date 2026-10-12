@@ -1,0 +1,108 @@
+.section {
+  padding-block: var(--space-8) var(--space-10);
+}
+
+.body {
+  max-width: var(--measure);
+  margin-bottom: var(--space-7);
+  font-size: var(--fs-lead);
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+.channels {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  gap: var(--space-3);
+}
+
+.channel {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  /* Full-width, comfortably tappable rows. The contact list is short enough to
+     afford the space, and this is the one interaction a recruiter on a phone
+     actually needs to hit first time. */
+  min-height: 3.75rem;
+  padding: var(--space-3) var(--space-4);
+  background: var(--surface-raised);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  transition:
+    border-color var(--dur-ui) var(--ease-out-quad),
+    background-color var(--dur-ui) var(--ease-out-quad);
+}
+
+.channelIcon {
+  flex: none;
+  color: var(--accent);
+}
+
+.channelBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.channelLabel {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: var(--track-mono-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.channelValue {
+  font-size: var(--fs-small);
+  color: var(--text-primary);
+  /* A 26-character address at 14px clears 320px, but a longer one must break
+     rather than widen the page. */
+  overflow-wrap: anywhere;
+}
+
+.channelArrow {
+  flex: none;
+  color: var(--text-muted);
+  transition: transform var(--dur-micro) var(--ease-out-quad);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .channel:hover {
+    border-color: var(--accent-line);
+    background: var(--surface-overlay);
+  }
+
+  .channel:hover .channelArrow {
+    transform: translateX(3px);
+    color: var(--accent);
+  }
+}
+
+.channel:focus-visible {
+  border-color: var(--accent-line);
+  background: var(--surface-overlay);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+.nda {
+  max-width: var(--measure);
+  margin-top: var(--space-6);
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .channel,
+  .channelArrow {
+    transition: none;
+  }
+}

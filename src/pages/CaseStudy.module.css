@@ -1,0 +1,370 @@
+.page {
+  max-width: 52rem;
+  margin-inline: auto;
+  padding-block: var(--space-7) var(--space-10);
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--tap-min);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-meta);
+  color: var(--text-muted);
+  transition: color var(--dur-ui) var(--ease-out-quad);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .back:hover {
+    color: var(--accent);
+  }
+}
+
+.back:focus-visible {
+  color: var(--accent);
+}
+
+/* ── Header ──────────────────────────────────────────────────────────────── */
+.header {
+  margin-top: var(--space-6);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-label);
+  letter-spacing: var(--track-mono-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.index {
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.dot {
+  opacity: 0.5;
+}
+
+.domain {
+  color: var(--accent);
+  background: var(--accent-tint);
+  border: 1px solid var(--accent-line);
+  border-radius: var(--radius-pill);
+  padding: 0.125rem 0.5rem;
+}
+
+.title {
+  font-size: var(--fs-h1);
+  letter-spacing: var(--track-h1);
+  color: var(--text-primary);
+}
+
+.tagline {
+  max-width: 46ch;
+  margin-top: var(--space-3);
+  font-size: var(--fs-lead);
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.clients {
+  margin-top: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-meta);
+  color: var(--text-muted);
+}
+
+/* ── Outcome strip ───────────────────────────────────────────────────────── */
+.outcomes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+  gap: var(--space-4);
+  margin-block: var(--space-7);
+  padding-block: var(--space-6);
+  border-block: 1px solid var(--border-subtle);
+}
+
+.outcome {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.outcomeValue {
+  font-size: clamp(1.375rem, 1.2rem + 0.8vi, 1.75rem);
+  font-weight: var(--weight-semibold);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+}
+
+.outcomeLabel {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: var(--track-mono-label);
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+/* Where a figure is qualitative or comes from a stated source rather than a
+   measurement, it says so under the number. A bare round metric with no
+   provenance is assumed to be invented. */
+.outcomeNote {
+  font-size: 0.6875rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+  opacity: 0.85;
+}
+
+/* ── Blocks ──────────────────────────────────────────────────────────────── */
+.block {
+  margin-block: var(--space-8);
+}
+
+.blockTitle {
+  margin-bottom: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-label);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--track-mono-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.prose {
+  max-width: var(--measure);
+  color: var(--text-secondary);
+}
+
+.ownedList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  max-width: var(--measure);
+}
+
+.ownedList li {
+  position: relative;
+  padding-left: var(--space-5);
+  color: var(--text-secondary);
+}
+
+.ownedList li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: var(--space-3);
+  height: 1px;
+  background: var(--accent-line);
+}
+
+.demoIntro {
+  max-width: var(--measure);
+  margin-bottom: var(--space-4);
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+}
+
+/* ── Details ─────────────────────────────────────────────────────────────── */
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.detail {
+  background: var(--surface-raised);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+/* Content stays in the DOM when collapsed — <details> keeps it findable by
+   Ctrl+F and by crawlers. Fetching it on click would hide it from both. */
+.detailSummary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  min-height: 3rem;
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--fs-body);
+  font-weight: var(--weight-medium);
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  cursor: pointer;
+  list-style: none;
+}
+
+.detailSummary::-webkit-details-marker {
+  display: none;
+}
+
+.detailChevron {
+  flex: none;
+  color: var(--text-muted);
+  transition: transform var(--dur-ui) var(--ease-out-quad);
+}
+
+.detail[open] .detailChevron {
+  transform: rotate(180deg);
+}
+
+.detailBody {
+  max-width: var(--measure);
+  padding: 0 var(--space-4) var(--space-4);
+  font-size: var(--fs-small);
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+
+/* ── Interview hooks ─────────────────────────────────────────────────────── */
+.hooksIntro {
+  max-width: var(--measure);
+  margin-bottom: var(--space-4);
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+}
+
+.hooks {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  max-width: var(--measure);
+}
+
+.hook {
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--fs-small);
+  line-height: 1.55;
+  color: var(--text-secondary);
+  background: var(--surface-raised);
+  border-left: 2px solid var(--accent-line);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+/* ── Related ─────────────────────────────────────────────────────────────── */
+.related {
+  margin-top: var(--space-9);
+  padding-top: var(--space-7);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.relatedList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  gap: var(--space-3);
+}
+
+.relatedLink {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  height: 100%;
+  min-height: 4.5rem;
+  padding: var(--space-4);
+  background: var(--surface-raised);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  transition:
+    border-color var(--dur-ui) var(--ease-out-quad),
+    background-color var(--dur-ui) var(--ease-out-quad);
+}
+
+.relatedIndex {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-label);
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+}
+
+.relatedBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.relatedTitle {
+  font-size: var(--fs-small);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+}
+
+.relatedTagline {
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+.relatedArrow {
+  flex: none;
+  color: var(--text-muted);
+  transition: transform var(--dur-micro) var(--ease-out-quad);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .relatedLink:hover {
+    border-color: var(--accent-line);
+    background: var(--surface-overlay);
+  }
+
+  .relatedLink:hover .relatedArrow {
+    transform: translateX(3px);
+    color: var(--accent);
+  }
+}
+
+.relatedLink:focus-visible {
+  border-color: var(--accent-line);
+}
+
+/* ── CTA ─────────────────────────────────────────────────────────────────── */
+.cta {
+  margin-top: var(--space-9);
+  padding: var(--space-7) var(--space-6);
+  background: var(--surface-raised);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+}
+
+.ctaTitle {
+  font-size: var(--fs-h3);
+  letter-spacing: var(--track-h3);
+  color: var(--text-primary);
+}
+
+.ctaBody {
+  max-width: 48ch;
+  margin-top: var(--space-3);
+  color: var(--text-secondary);
+}
+
+.ctaActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .back,
+  .detailChevron,
+  .relatedLink,
+  .relatedArrow {
+    transition: none;
+  }
+}

@@ -1,0 +1,4 @@
+# SPA fallback: /work/:slug and /resume are client-side routes, so any path
+# that is not a real file must return index.html rather than a 404.
+# Netlify reads this file; see README for the Vercel / Apache / nginx equivalents.
+/*  /index.html  200

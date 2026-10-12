@@ -1,0 +1,23 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  min-width: 0;
+}
+
+/* The split only exists once there is room for two readable columns. Below
+   1024px the rail simply becomes the first block on the page. */
+@media (min-width: 64em) {
+  .layout {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: var(--space-8);
+  }
+
+  .content {
+    width: var(--content-width);
+    padding-block: var(--space-11);
+  }
+}

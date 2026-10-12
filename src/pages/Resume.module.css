@@ -1,0 +1,335 @@
+.page {
+  max-width: 48rem;
+  margin-inline: auto;
+  padding-block: var(--space-7) var(--space-10);
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-7);
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--tap-min);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-meta);
+  color: var(--text-muted);
+}
+
+.back:hover {
+  color: var(--accent);
+}
+
+.toolbarActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.sheet {
+  padding: var(--space-7) var(--space-6);
+  background: var(--surface-raised);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.header {
+  padding-bottom: var(--space-5);
+  border-bottom: 1px solid var(--border-strong);
+}
+
+.name {
+  font-size: var(--fs-h1);
+  letter-spacing: var(--track-h1);
+  color: var(--text-primary);
+}
+
+.role {
+  margin-top: var(--space-1);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-meta);
+  letter-spacing: var(--track-mono-label);
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  margin-top: var(--space-4);
+  font-size: var(--fs-small);
+  color: var(--text-secondary);
+}
+
+.contact a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  overflow-wrap: anywhere;
+}
+
+.contact a:hover {
+  color: var(--accent);
+}
+
+.section {
+  margin-top: var(--space-6);
+}
+
+.sectionTitle {
+  margin-bottom: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-label);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--track-mono-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.summary {
+  color: var(--text-secondary);
+}
+
+.skills {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.skillRow {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.skillLabel {
+  font-size: var(--fs-small);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+}
+
+.skillValue {
+  margin: 0;
+  font-size: var(--fs-small);
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.role_ {
+  margin-bottom: var(--space-6);
+}
+
+.role_:last-child {
+  margin-bottom: 0;
+}
+
+.roleHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.roleTitle {
+  font-size: var(--fs-body);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+}
+
+.rolePeriod {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-meta);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.roleDomain {
+  margin-top: var(--space-1);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: var(--track-mono-label);
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.bullets {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.bullets li {
+  position: relative;
+  padding-left: var(--space-5);
+  font-size: var(--fs-small);
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.bullets li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: var(--space-3);
+  height: 1px;
+  background: var(--accent-line);
+}
+
+.bullets strong {
+  color: var(--text-primary);
+}
+
+.roleStack {
+  margin-top: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.domains p {
+  font-size: var(--fs-small);
+  color: var(--text-secondary);
+}
+
+/* ── Print ──────────────────────────────────────────────────────────────────
+   Forces the light palette regardless of theme (nobody wants a black page from
+   their printer), drops all chrome, and keeps sections from splitting mid-role. */
+@media print {
+  /* Denser than the screen layout, so the whole résumé lands on two A4 pages
+     rather than three. At screen sizes this spacing is comfortable; on paper
+     it just wastes a sheet, and a three-page résumé is a mild negative with
+     every recruiter who reads it. */
+  .page {
+    max-width: none;
+    padding: 0;
+    font-size: 10pt;
+    line-height: 1.45;
+  }
+
+  .sheet {
+    padding: 0;
+    background: #fff;
+    border: none;
+    box-shadow: none;
+  }
+
+  .name {
+    font-size: 20pt;
+  }
+
+  .role {
+    font-size: 8.5pt;
+  }
+
+  .contact {
+    margin-top: var(--space-2);
+    gap: var(--space-1) var(--space-4);
+    font-size: 9pt;
+  }
+
+  .contact a {
+    min-height: 0;
+  }
+
+  .header {
+    padding-bottom: var(--space-3);
+  }
+
+  .section {
+    margin-top: var(--space-4);
+  }
+
+  .sectionTitle {
+    margin-bottom: var(--space-2);
+    font-size: 8pt;
+  }
+
+  .summary,
+  .skillValue,
+  .bullets li,
+  .domains p {
+    font-size: 9.5pt;
+    line-height: 1.4;
+  }
+
+  .skills {
+    gap: var(--space-1);
+  }
+
+  .skillLabel,
+  .roleTitle {
+    font-size: 10pt;
+  }
+
+  .role_ {
+    margin-bottom: var(--space-4);
+  }
+
+  .roleDomain,
+  .rolePeriod,
+  .roleStack {
+    font-size: 8pt;
+  }
+
+  .bullets {
+    gap: var(--space-1);
+    margin-top: var(--space-2);
+  }
+
+  .roleStack {
+    margin-top: var(--space-2);
+  }
+
+  .name,
+  .roleTitle,
+  .skillLabel,
+  .bullets strong {
+    color: #000;
+  }
+
+  .summary,
+  .skillValue,
+  .bullets li,
+  .contact,
+  .domains p {
+    color: #222;
+  }
+
+  .role,
+  .roleDomain,
+  .sectionTitle,
+  .rolePeriod,
+  .roleStack {
+    color: #444;
+  }
+
+  .bullets li::before {
+    background: #888;
+  }
+
+  .header {
+    border-bottom-color: #000;
+  }
+
+  .role_,
+  .section {
+    break-inside: avoid;
+  }
+
+  .contact a {
+    text-decoration: none;
+  }
+}

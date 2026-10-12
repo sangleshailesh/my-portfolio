@@ -1,0 +1,85 @@
+.section {
+  padding-block: var(--space-8) var(--space-10);
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-7);
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+}
+
+.legendMark {
+  width: 5px;
+  height: 5px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.groups {
+  display: grid;
+  /* The min() guard keeps the track from staying at 16rem inside a narrower
+     container and pushing the page wider than the viewport. */
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  gap: var(--space-7) var(--space-6);
+}
+
+.group {
+  min-width: 0;
+}
+
+.groupTitle {
+  font-size: var(--fs-body);
+  font-weight: var(--weight-semibold);
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+.groupNote {
+  margin-top: var(--space-1);
+  margin-bottom: var(--space-4);
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+}
+
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+/* Pills wrap; they are never a horizontal scroller and never `nowrap`. They
+   are labels, not controls — at 320px "RESTful API Integration" has to be
+   allowed to break. */
+.skill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+  padding: 0.25rem 0.75rem;
+  font-size: var(--fs-mono-meta);
+  font-family: var(--font-mono);
+  letter-spacing: var(--track-mono-meta);
+  line-height: 1.5;
+  color: var(--text-muted);
+  background: var(--surface-raised);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+}
+
+.core {
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+}
+
+.coreMark {
+  width: 5px;
+  height: 5px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--accent);
+}

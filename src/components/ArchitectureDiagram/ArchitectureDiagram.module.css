@@ -1,0 +1,186 @@
+.figure {
+  margin: 0;
+  padding: var(--space-6) var(--space-5);
+  background: var(--surface-raised);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  /* A faint measured grid behind the diagram — instrument-panel texture rather
+     than decoration, and it costs nothing. */
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-position: -1px -1px;
+}
+
+.diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.layer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* ── Connectors ──────────────────────────────────────────────────────────── */
+.connector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  padding-block: var(--space-2);
+}
+
+.connectorLine {
+  width: 1px;
+  height: var(--space-4);
+  background: var(--border-strong);
+}
+
+.connectorLabel {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: var(--track-mono-label);
+  text-transform: uppercase;
+  color: var(--accent);
+  padding: 0.0625rem 0.4rem;
+  background: var(--accent-tint);
+  border: 1px solid var(--accent-line);
+  border-radius: var(--radius-pill);
+}
+
+.connectorArrow {
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 5px solid var(--border-strong);
+}
+
+/* ── Nodes ───────────────────────────────────────────────────────────────── */
+.nodes {
+  display: grid;
+  gap: var(--space-3);
+  width: 100%;
+  max-width: 26rem;
+}
+
+/* Two nodes sit side by side only once there is room. Below that they stack,
+   which is the difference between a diagram that reflows and one that is
+   scaled down until nobody can read it. */
+@media (min-width: 30em) {
+  .nodes[data-count='2'] {
+    grid-template-columns: 1fr 1fr;
+    max-width: 34rem;
+  }
+}
+
+.node {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+  padding: var(--space-3) var(--space-4);
+  text-align: center;
+  background: var(--surface-base);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+}
+
+.nodeLabel {
+  font-size: var(--fs-small);
+  font-weight: var(--weight-semibold);
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+.nodeSub {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+  overflow-wrap: anywhere;
+}
+
+/* Node kinds are distinguished by border treatment and a left edge, never by
+   fill colour alone — the diagram has to survive being printed in greyscale. */
+.node[data-kind='service'] {
+  border-left: 2px solid var(--border-strong);
+}
+
+.node[data-kind='state'] {
+  border-left: 2px solid var(--accent-line);
+  background: var(--surface-overlay);
+}
+
+.node[data-kind='logic'] {
+  border-color: var(--accent-line);
+  border-left: 2px solid var(--accent);
+}
+
+.node[data-kind='view'] {
+  border-left: 2px solid var(--border-subtle);
+}
+
+.node[data-kind='decision'] {
+  border-style: dashed;
+  border-color: var(--accent-line);
+}
+
+.node[data-kind='wire'] {
+  border-style: dashed;
+  background: var(--surface-inset);
+}
+
+.branchTag {
+  align-self: center;
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  letter-spacing: var(--track-mono-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.node[data-branch='hit'] .branchTag {
+  color: var(--accent);
+}
+
+.feedback {
+  margin-top: var(--space-5);
+  padding-top: var(--space-4);
+  border-top: 1px dashed var(--border-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1.6;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+/* ── Caption ─────────────────────────────────────────────────────────────── */
+.caption {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: var(--space-5);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.captionTitle {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-label);
+  letter-spacing: var(--track-mono-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.captionSummary {
+  font-size: var(--fs-small);
+  line-height: 1.6;
+  color: var(--text-secondary);
+}

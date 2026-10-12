@@ -1,0 +1,341 @@
+/* 1px probe at the very top of the document. While it is on screen the page is
+   unscrolled; the moment it leaves, the bar takes its scrolled state. */
+.sentinel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  min-height: var(--mobile-bar-height);
+  /* Full-bleed by negating the gutter. `100vw` includes the classic scrollbar
+     and overflows the page between 768px and 1023px in a desktop browser. */
+  margin-inline: calc(var(--gutter) * -1);
+  padding-inline: var(--gutter);
+  padding-block: var(--space-2);
+  padding-top: calc(var(--space-2) + env(safe-area-inset-top, 0px));
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition:
+    background-color var(--dur-overlay) var(--ease-out-quad),
+    border-color var(--dur-overlay) var(--ease-out-quad),
+    padding-block var(--dur-overlay) var(--ease-out-quad);
+}
+
+/* The compacted state. Threshold is ~1px of scroll rather than the usual 50px,
+   which leaves a dead zone where the bar sits over content with no background. */
+.bar[data-scrolled='true'] {
+  background: color-mix(in srgb, var(--surface-base) 82%, transparent);
+  border-bottom-color: var(--border-subtle);
+  backdrop-filter: blur(8px) saturate(1.8);
+  -webkit-backdrop-filter: blur(8px) saturate(1.8);
+  padding-block: var(--space-1);
+  padding-top: calc(var(--space-1) + env(safe-area-inset-top, 0px));
+}
+
+/* backdrop-filter must never be load-bearing for legibility. */
+@supports not (backdrop-filter: blur(1px)) {
+  .bar[data-scrolled='true'] {
+    background: var(--surface-base);
+  }
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.brandName {
+  font-size: var(--fs-small);
+  font-weight: var(--weight-semibold);
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+/* Truncates rather than wrapping. At 320px "Senior Frontend Engineer" would
+   otherwise take a second line and push into the controls. */
+.brandRole {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: var(--track-mono-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.barActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  flex: none;
+}
+
+/* Sized from the same token as the preference buttons beside it, so the bar
+   does not mix a 36px control with a 44px one. */
+.menuButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: max(2.5rem, var(--tap-min));
+  height: max(2.5rem, var(--tap-min));
+  color: var(--text-primary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  transition: background-color var(--dur-ui) var(--ease-out-quad);
+}
+
+/* Desktop-only inline section nav, used off the home page. */
+.inlineNav {
+  display: none;
+  margin-right: var(--space-2);
+}
+
+.inlineNav ul {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.inlineLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  padding-inline: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-label);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--track-mono-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-radius: var(--radius-md);
+  transition:
+    color var(--dur-ui) var(--ease-out-quad),
+    background-color var(--dur-ui) var(--ease-out-quad);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .inlineLink:hover {
+    color: var(--text-primary);
+    background: var(--surface-raised);
+  }
+}
+
+.inlineLink:focus-visible {
+  color: var(--text-primary);
+}
+
+.menuButton:active {
+  background: var(--surface-raised);
+}
+
+/* ── Dialog ──────────────────────────────────────────────────────────────── */
+.dialog {
+  /* The dialog element itself is the backdrop hit area. */
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  overflow: hidden;
+}
+
+.dialog::backdrop {
+  background: color-mix(in srgb, var(--surface-inset) 78%, transparent);
+  backdrop-filter: blur(5px) brightness(0.7);
+  -webkit-backdrop-filter: blur(5px) brightness(0.7);
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  /* dvh is correct here precisely because this is a fixed overlay — it is in
+     normal flow that dvh causes a reflow every time the toolbar animates. */
+  height: 100dvh;
+  max-height: 100dvh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--gutter);
+  padding-top: calc(var(--gutter) + env(safe-area-inset-top, 0px));
+  padding-bottom: calc(var(--gutter) + env(safe-area-inset-bottom, 0px));
+  background: var(--surface-base);
+  border-left: 1px solid var(--border-subtle);
+  margin-left: auto;
+  width: min(24rem, 100%);
+}
+
+.panelHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.panelTitle {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-label);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--track-mono-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.closeButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin-right: calc(var(--space-2) * -1);
+  color: var(--text-primary);
+  border-radius: var(--radius-md);
+}
+
+.menuList {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.menuItem {
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.menuLink {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-4);
+  min-height: 3.5rem;
+  padding-block: var(--space-4);
+  font-size: var(--fs-h3);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--track-h3);
+  color: var(--text-primary);
+}
+
+.menuIndex {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-label);
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.menuLink:active {
+  color: var(--accent);
+}
+
+.panelFoot {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: auto;
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.panelActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.panelContact {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 2.75rem;
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-meta);
+  color: var(--text-muted);
+  overflow-wrap: anywhere;
+}
+
+/* Entrance is written additively inside `no-preference`, so if it is skipped
+   the panel simply appears rather than being stranded off-screen. */
+@media (prefers-reduced-motion: no-preference) {
+  .dialog[open] .panel {
+    animation: slideIn var(--dur-overlay) var(--ease-out-cubic);
+  }
+
+  .dialog[open] .menuItem {
+    animation: menuItemIn var(--dur-reveal) var(--ease-out-quart) both;
+    animation-delay: calc(60ms + var(--i) * 40ms);
+  }
+
+  :root[data-motion='reduced'] .dialog[open] .panel,
+  :root[data-motion='reduced'] .dialog[open] .menuItem {
+    animation: none;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(12px);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@keyframes menuItemIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* On the home page the bar is mobile-only: the identity rail takes over at
+   desktop, and keeping both would put every section link in the tab order
+   twice.
+   On every other route there is no rail, so the bar stays — otherwise a case
+   study at desktop width would have no navigation and no theme control at
+   all. */
+@media (min-width: 64em) {
+  .bar[data-route='home'],
+  .dialog[data-route='home'] {
+    display: none;
+  }
+
+  /* The sentinel stays in the DOM at every width — it is a 1px invisible
+     probe, and hiding it would make the observer report "never intersecting",
+     pinning the bar into its scrolled state permanently. */
+
+  /* No rail to sit beside, so the bar spans the content and keeps a border. */
+  .bar[data-route='sub'] {
+    border-bottom-color: var(--border-subtle);
+  }
+
+  /* Sections go inline and the hamburger stands down — there is room for both
+     the links and the controls, so nothing needs hiding behind a click. */
+  .bar[data-route='sub'] .inlineNav {
+    display: block;
+  }
+
+  .bar[data-route='sub'] .menuButton {
+    display: none;
+  }
+}

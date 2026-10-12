@@ -1,0 +1,104 @@
+.section {
+  padding-block: var(--space-8) var(--space-10);
+}
+
+.lead {
+  max-width: 38ch;
+  font-size: var(--fs-h3);
+  font-weight: var(--weight-medium);
+  line-height: 1.4;
+  letter-spacing: var(--track-h3);
+  color: var(--text-primary);
+  text-wrap: balance;
+}
+
+/* ── Metric strip ────────────────────────────────────────────────────────── */
+/* Fixed at two columns rather than auto-fit. There are exactly four figures,
+   and the content column only ever fits three — which left one stranded on a
+   second row. A deliberate 2×2 block reads as a designed unit. */
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-5) var(--space-4);
+  margin-block: var(--space-7);
+  padding-block: var(--space-6);
+  border-block: 1px solid var(--border-subtle);
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.metricValue {
+  font-size: clamp(1.75rem, 1.5rem + 1vi, 2.25rem);
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.metricLabel {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1.5;
+  letter-spacing: var(--track-mono-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ── Prose ───────────────────────────────────────────────────────────────── */
+.prose {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.passage {
+  max-width: var(--measure);
+  color: var(--text-secondary);
+}
+
+/* ── Principles ──────────────────────────────────────────────────────────── */
+.principlesTitle {
+  margin-top: var(--space-9);
+  margin-bottom: var(--space-5);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-label);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--track-mono-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.principles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: var(--space-5);
+}
+
+.principle {
+  min-width: 0;
+  padding: var(--space-5);
+  background: var(--surface-raised);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.principleTitle {
+  margin-bottom: var(--space-2);
+  font-size: var(--fs-body);
+  font-weight: var(--weight-semibold);
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+.principleBody {
+  font-size: var(--fs-small);
+  line-height: 1.6;
+  color: var(--text-muted);
+}

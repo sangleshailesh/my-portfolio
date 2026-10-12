@@ -1,0 +1,211 @@
+.section {
+  padding-block: var(--space-8) var(--space-10);
+}
+
+.intro {
+  max-width: var(--measure);
+  margin-bottom: var(--space-7);
+  color: var(--text-secondary);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.card {
+  position: relative;
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  /* Visible at rest, not only on hover. On touch there is no hover to reveal
+     the affordance, so the card has to read as interactive standing still. */
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background: var(--surface-raised);
+  box-shadow: var(--shadow-card);
+  transition:
+    border-color var(--dur-ui) var(--ease-out-quad),
+    background-color var(--dur-ui) var(--ease-out-quad),
+    opacity var(--dur-ui) var(--ease-out-quad);
+}
+
+.meta {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+}
+
+.index {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-label);
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+}
+
+.period {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-label);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: var(--track-mono-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.title {
+  font-size: var(--fs-h3);
+  letter-spacing: var(--track-h3);
+}
+
+.link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  color: var(--text-primary);
+  transition: color var(--dur-ui) var(--ease-out-quad);
+}
+
+/* Expands the link's hit area to the whole card without nesting interactive
+   elements or wrapping a heading in an anchor. */
+.link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-lg);
+}
+
+.linkIcon {
+  flex: none;
+  transition: transform var(--dur-micro) var(--ease-out-quad);
+}
+
+.company {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-meta);
+  letter-spacing: var(--track-mono-meta);
+  color: var(--text-muted);
+}
+
+.tagline {
+  max-width: var(--measure);
+  font-size: var(--fs-small);
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.outcome {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.outcomeValue {
+  font-size: var(--fs-body);
+  font-weight: var(--weight-semibold);
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.outcomeLabel {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: var(--track-mono-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.stack li {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-meta);
+  color: var(--text-muted);
+}
+
+.note {
+  margin-top: var(--space-8);
+}
+
+/* Sibling de-emphasis. The hovered row holds; the rest recede. This needs a
+   real hovering pointer — on touch it would strand a row dimmed. */
+@media (hover: hover) and (pointer: fine) {
+  .list:hover .item .card {
+    opacity: 0.55;
+  }
+
+  .list .item:hover .card {
+    opacity: 1;
+    border-color: var(--accent-line);
+    background: var(--surface-overlay);
+  }
+
+  .item:hover .link {
+    color: var(--accent);
+  }
+
+  .item:hover .linkIcon {
+    transform: translate(2px, -2px);
+  }
+}
+
+/* Keyboard users get the same signal as the mouse. */
+.item:focus-within .card {
+  opacity: 1;
+  border-color: var(--accent-line);
+  background: var(--surface-overlay);
+}
+
+.list:focus-within .item .card {
+  opacity: 0.55;
+}
+
+.list .item:focus-within .card {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .link,
+  .linkIcon {
+    transition: none;
+  }
+}
+
+@media (min-width: 40em) {
+  .card {
+    grid-template-columns: 9.5rem 1fr;
+    column-gap: var(--space-6);
+    padding: var(--space-6);
+  }
+
+  .meta {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+}

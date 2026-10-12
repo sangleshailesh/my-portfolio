@@ -1,0 +1,228 @@
+/**
+ * ─────────────────────────────────────────────────────────────────────────────
+ * DESIGN TOKENS
+ * ─────────────────────────────────────────────────────────────────────────────
+ * Every colour, size, duration and easing used anywhere in the app resolves to
+ * a token defined here. Components never hardcode a value.
+ *
+ * Colour tokens are named by ROLE (--surface-raised, --text-muted), never by
+ * value (--gray-800). In a themed app a value name becomes a lie the moment the
+ * theme flips.
+ *
+ * Palette: warm charcoal + amber. The warm neutral ramp is deliberate — the
+ * cool navy/slate + mint palette is the single most-cloned developer-portfolio
+ * scheme there is, and it reads as a fork on sight. Amber on warm charcoal also
+ * suits the work: instrument panels, gauges, analytics.
+ *
+ * Contrast ratios are recorded beside each text token and were computed, not
+ * estimated. Body text targets ≥ 4.5:1 (WCAG AA), UI hairlines sit far below on
+ * purpose — that softness is most of what reads as expensive.
+ * ─────────────────────────────────────────────────────────────────────────────
+ */
+
+:root {
+  /* ── Typeface ────────────────────────────────────────────────────────────
+     Two families, which is the ceiling for a portfolio. Inter is de-generified
+     with negative tracking and character alternates rather than by reaching for
+     a more exotic face; JetBrains Mono carries all metadata.
+     The fallback stacks are ordered so the swap shifts metrics as little as
+     possible.                                                                */
+  --font-sans:
+    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, sans-serif;
+  --font-mono:
+    'JetBrains Mono', ui-monospace, 'SF Mono', 'Cascadia Mono', 'Roboto Mono',
+    Consolas, 'Liberation Mono', monospace;
+
+  /* ── Type scale ──────────────────────────────────────────────────────────
+     Only display-level steps are fluid. Body copy stays in fixed rem so line
+     length is predictable and browser zoom is never defeated.
+
+     Every clamp() preferred value carries a rem term — a bare `vw` preferred
+     value does not scale under zoom, which is a WCAG 1.4.4 failure.
+     Every heading's max stays under 2.5× its min for the same reason.        */
+  --fs-display: clamp(2.5rem, 1.9rem + 2.6vi, 4rem); /* 40 → 64px  (1.60×) */
+  --fs-h1: clamp(2rem, 1.65rem + 1.5vi, 2.875rem); /* 32 → 46px  (1.44×) */
+  --fs-h2: clamp(1.5rem, 1.28rem + 0.9vi, 2rem); /* 24 → 32px  (1.33×) */
+  --fs-h3: clamp(1.1875rem, 1.13rem + 0.25vi, 1.375rem); /* 19 → 22px  (1.16×) */
+  --fs-lead: clamp(1.0625rem, 1.02rem + 0.2vi, 1.1875rem); /* 17 → 19px */
+  --fs-body: 1rem; /* fixed */
+  --fs-small: 0.875rem; /* fixed */
+  --fs-mono-label: 0.75rem; /* fixed — uppercase eyebrows */
+  --fs-mono-meta: 0.8125rem; /* fixed — dates, tags   */
+
+  /* Tracking. Untracked display type is the clearest tell of a template.
+     Mono set uppercase needs positive tracking or it looks cramped.          */
+  --track-display: -0.035em;
+  --track-h1: -0.03em;
+  --track-h2: -0.025em;
+  --track-h3: -0.015em;
+  --track-body: -0.006em;
+  --track-mono-label: 0.12em;
+  --track-mono-meta: 0.01em;
+
+  --lh-display: 1.05;
+  --lh-heading: 1.15;
+  --lh-body: 1.65;
+  --lh-tight: 1.35;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+
+  /* ── Spacing ─────────────────────────────────────────────────────────── */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 2.5rem;
+  --space-8: 3rem;
+  --space-9: 4rem;
+  --space-10: 5rem;
+  --space-11: 6rem;
+  --space-12: 8rem;
+
+  /* Page gutter. Full-bleed elements negate this rather than using 100vw,
+     which includes the scrollbar and overflows on desktop.                    */
+  --gutter: clamp(1.25rem, 0.9rem + 1.6vi, 3rem);
+
+  /* ── Layout ──────────────────────────────────────────────────────────── */
+  --container-max: 78rem; /* 1248px */
+  --measure: 65ch; /* prose line length cap */
+  --measure-tight: 46ch;
+  --rail-width: 46%;
+  --content-width: 54%;
+  --mobile-bar-height: 3.5rem;
+
+  /* Minimum interactive height. Compact on a mouse, where a 36px control is
+     comfortable and a 44px one is bloated; raised to the 44px touch minimum on
+     coarse pointers, where it is the difference between hitting the link and
+     hitting the one above it. */
+  --tap-min: 2.25rem;
+
+  /* ── Radii ───────────────────────────────────────────────────────────── */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.625rem;
+  --radius-xl: 1rem;
+  --radius-pill: 999px;
+
+  /* ── Motion ──────────────────────────────────────────────────────────────
+     A visible, consistent motion system is the seniority signal; inconsistent
+     durations read as template even when each value is individually fine.
+     Nothing in the app freehands a duration or an easing.
+
+     Exits run faster than entrances — leaving should feel immediate.          */
+  --dur-micro: 120ms; /* hover tint, icon nudge        */
+  --dur-ui: 180ms; /* button press, border, colour  */
+  --dur-overlay: 240ms; /* dialog, sheet                 */
+  --dur-reveal: 450ms; /* scroll-triggered entrance     */
+  --dur-display: 650ms; /* hero headline                 */
+
+  --ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1);
+  --ease-out-quart: cubic-bezier(0.165, 0.84, 0.44, 1);
+  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1);
+
+  /* Reveal travel stays small. Large travel reads as animation rather than
+     arrival, and crosses into vestibular-trigger territory.                  */
+  --reveal-travel: 14px;
+  --reveal-stagger: 60ms;
+
+  /* ── Breakpoints (documentation; media queries below inline the values) ── */
+  --bp-sm: 40rem; /* 640px  */
+  --bp-md: 48rem; /* 768px  */
+  --bp-lg: 64rem; /* 1024px */
+  --bp-xl: 80rem; /* 1280px */
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   DARK THEME (default)
+   ───────────────────────────────────────────────────────────────────────── */
+:root,
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --surface-base: #100f0d;
+  --surface-raised: #191714;
+  --surface-overlay: #211e1a;
+  --surface-inset: #0b0a09;
+
+  --border-subtle: rgba(255, 249, 237, 0.08);
+  --border-strong: rgba(255, 249, 237, 0.16);
+  --border-accent: rgba(245, 165, 36, 0.28);
+
+  --text-primary: #f0ede8; /* 16.5:1 — deliberately not #fff, which halates */
+  --text-secondary: #b8b2a8; /*  9.1:1 */
+  --text-muted: #8b857a; /*  5.3:1 */
+
+  --accent: #f5a524; /*  9.4:1 as text on --surface-base */
+  --accent-solid: #f5a524;
+  --accent-on-solid: #1a1200;
+  --accent-tint: rgba(245, 165, 36, 0.12);
+  --accent-line: rgba(245, 165, 36, 0.3);
+
+  --focus-ring: #ffc65c;
+
+  /* Shadows barely exist in dark mode — elevation is carried by surface
+     lightness instead. Light mode reverses this.                             */
+  --shadow-card: none;
+  --shadow-overlay: 0 24px 60px -20px rgba(0, 0, 0, 0.8);
+
+  --selection-bg: rgba(245, 165, 36, 0.26);
+  --selection-fg: #fff6e4;
+
+  --grid-line: rgba(255, 249, 237, 0.055);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   LIGHT THEME
+   Derived, not inverted. Elevation reverses direction (raised = whiter plus a
+   real shadow), the accent is re-derived because #f5a524 is ~1.9:1 on white,
+   and the muted grey is a different hue-lightness entirely — a single grey
+   cannot pass AA against both a near-black and a near-white ground.
+   ───────────────────────────────────────────────────────────────────────── */
+:root[data-theme='light'] {
+  color-scheme: light;
+
+  --surface-base: #faf9f7;
+  --surface-raised: #ffffff;
+  --surface-overlay: #ffffff;
+  --surface-inset: #f2f0ec;
+
+  --border-subtle: rgba(28, 26, 23, 0.09);
+  --border-strong: rgba(28, 26, 23, 0.18);
+  --border-accent: rgba(143, 90, 5, 0.3);
+
+  --text-primary: #1c1a17; /* 16.7:1 */
+  --text-secondary: #57534c; /*  7.3:1 */
+  --text-muted: #6b665d; /*  5.4:1 */
+
+  --accent: #8f5a05; /*  5.5:1 as text on --surface-base */
+  --accent-solid: #f5a524;
+  --accent-on-solid: #1a1200;
+  --accent-tint: rgba(143, 90, 5, 0.09);
+  --accent-line: rgba(143, 90, 5, 0.26);
+
+  --focus-ring: #8f5a05;
+
+  --shadow-card: 0 1px 2px rgba(28, 26, 23, 0.06), 0 4px 12px -6px rgba(28, 26, 23, 0.08);
+  --shadow-overlay: 0 24px 60px -20px rgba(28, 26, 23, 0.25);
+
+  --selection-bg: rgba(245, 165, 36, 0.32);
+  --selection-fg: #2b1c00;
+
+  --grid-line: rgba(28, 26, 23, 0.06);
+}
+
+/* Gated on pointer capability rather than on viewport width: a 1280px
+   touchscreen laptop needs the larger targets, and a 900px desktop window does
+   not. Width-based gating gets both cases wrong. */
+@media (pointer: coarse) {
+  :root {
+    --tap-min: 2.75rem;
+  }
+}

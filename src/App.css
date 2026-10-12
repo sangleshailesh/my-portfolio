@@ -1,0 +1,49 @@
+/**
+ * App shell — page frame and the decorative backdrop.
+ */
+
+.shell {
+  position: relative;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  /* One gutter declaration for the whole app. Every full-bleed element negates
+     this value rather than reaching for 100vw. */
+  padding-inline: var(--gutter);
+  min-height: 100svh;
+}
+
+/**
+ * Backdrop.
+ *
+ * A 40px measured grid, drawn at ~5% of the text colour and masked so it
+ * surfaces only in the top-right corner. Two details do the work: the mask, so
+ * it reads as texture rather than as wallpaper, and the deliberate half-cell
+ * offset, so it never lines up with anything on the page.
+ *
+ * `svh` rather than `vh` — `vh` measures the viewport as though mobile browser
+ * chrome were hidden, and `dvh` in normal flow reflows on every toolbar
+ * animation. Fixed positioning means it costs nothing on scroll.
+ */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: 14px 12px;
+  mask-image: linear-gradient(200deg, rgba(0, 0, 0, 0.9) 0%, transparent 55%);
+  -webkit-mask-image: linear-gradient(200deg, rgba(0, 0, 0, 0.9) 0%, transparent 55%);
+}
+
+@supports not (mask-image: linear-gradient(#000, #0000)) {
+  .backdrop {
+    display: none;
+  }
+}
+
+.route-fallback {
+  min-height: 60svh;
+}

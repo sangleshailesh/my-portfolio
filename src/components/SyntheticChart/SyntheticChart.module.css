@@ -1,0 +1,256 @@
+.panel {
+  padding: var(--space-5);
+  background: var(--surface-raised);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.title {
+  font-size: var(--fs-body);
+  font-weight: var(--weight-semibold);
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+.subtitle {
+  max-width: 44ch;
+  margin-top: var(--space-1);
+  font-size: var(--fs-small);
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+
+/* Stays visible inside the panel at all times. The data is invented and the
+   label says so — an unlabelled mock implying a real interface is the one
+   thing here that could cost credibility in an interview. */
+.simTag {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: var(--track-mono-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: var(--surface-inset);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-pill);
+  padding: 0.1875rem 0.5rem;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.zoneButton {
+  min-height: var(--tap-min);
+  padding: 0.25rem 0.75rem;
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-meta);
+  color: var(--text-muted);
+  background: var(--surface-base);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  transition:
+    color var(--dur-ui) var(--ease-out-quad),
+    border-color var(--dur-ui) var(--ease-out-quad),
+    background-color var(--dur-ui) var(--ease-out-quad);
+}
+
+/* Selected state carries colour, background and border — never colour alone. */
+.zoneButton[aria-pressed='true'] {
+  color: var(--accent);
+  background: var(--accent-tint);
+  border-color: var(--accent-line);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .zoneButton:hover {
+    color: var(--text-primary);
+    border-color: var(--border-strong);
+  }
+
+  .zoneButton[aria-pressed='true']:hover {
+    color: var(--accent);
+  }
+}
+
+.dayLabel {
+  margin-bottom: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-label);
+  letter-spacing: var(--track-mono-label);
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.zoneName {
+  color: var(--text-muted);
+  text-transform: none;
+}
+
+.chartWrap {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+}
+
+.svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  touch-action: pan-y;
+  border-radius: var(--radius-md);
+}
+
+.svg:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.grid {
+  stroke: var(--border-subtle);
+  stroke-width: 1;
+}
+
+.line {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.cursor {
+  stroke: var(--border-strong);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
+.dot {
+  fill: var(--accent);
+  stroke: var(--surface-raised);
+  stroke-width: 2;
+}
+
+.axisLabel {
+  fill: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+.readout {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.125rem;
+  padding: var(--space-2) var(--space-3);
+  background: var(--surface-overlay);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  pointer-events: none;
+}
+
+.readoutValue {
+  font-size: var(--fs-body);
+  font-weight: var(--weight-semibold);
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+}
+
+.readoutTime {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  color: var(--text-muted);
+}
+
+.hint {
+  margin-top: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--text-muted);
+}
+
+.tableDetails {
+  margin-top: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.summary {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-meta);
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.summary:hover {
+  color: var(--accent);
+}
+
+/* A data table is the one thing that may legitimately scroll sideways — WCAG
+   1.4.10 exempts content that genuinely needs two dimensions. It is contained
+   here so it can never widen the page. */
+.tableScroll {
+  margin-top: var(--space-3);
+  max-height: 16rem;
+  overflow: auto;
+  overscroll-behavior: contain;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-small);
+}
+
+.table th,
+.table td {
+  padding: var(--space-2) var(--space-3);
+  text-align: left;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.table th {
+  position: sticky;
+  top: 0;
+  background: var(--surface-overlay);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: var(--track-mono-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: var(--weight-medium);
+}
+
+.table td {
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-meta);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .zoneButton {
+    transition: none;
+  }
+}

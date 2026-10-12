@@ -1,0 +1,76 @@
+.header {
+  margin-bottom: var(--space-6);
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.index {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-label);
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-label);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--track-mono-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* The hairline runs to the end of the measure. At 1.3–1.8:1 it is deliberately
+   far below text contrast — decorative rules that soft are much of what reads
+   as considered rather than drawn-on. */
+.rule {
+  flex: 1;
+  min-width: var(--space-5);
+  height: 1px;
+  background: var(--border-subtle);
+}
+
+.title {
+  font-size: var(--fs-h2);
+  letter-spacing: var(--track-h2);
+  color: var(--text-primary);
+}
+
+/* Mobile: the section header sticks under the top bar. Full-bleed is achieved
+   by negating the gutter, never with 100vw — which includes the scrollbar and
+   overflows between 768px and 1023px in a desktop browser. */
+@media (max-width: 63.99em) {
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    margin-inline: calc(var(--gutter) * -1);
+    padding: var(--space-4) var(--gutter) var(--space-3);
+    background: color-mix(in srgb, var(--surface-base) 88%, transparent);
+    border-bottom: 1px solid var(--border-subtle);
+    backdrop-filter: blur(8px) saturate(1.8);
+    -webkit-backdrop-filter: blur(8px) saturate(1.8);
+  }
+
+  /* Blur alone only greys the backdrop; where it is unsupported the bar must
+     be fully opaque or the text behind it shows through. */
+  @supports not (backdrop-filter: blur(1px)) {
+    .header {
+      background: var(--surface-base);
+    }
+  }
+
+  .meta {
+    margin-bottom: var(--space-1);
+  }
+
+  .title {
+    font-size: var(--fs-h3);
+  }
+}

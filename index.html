@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- No maximum-scale or user-scalable=no: both block pinch-zoom and fail
+         WCAG 1.4.4. The iOS focus-zoom they are usually added to suppress is
+         fixed properly in base.css with a 16px minimum on form controls. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+
+    <!-- Matched to the two theme surfaces so browser chrome follows the page. -->
+    <meta name="theme-color" content="#100f0d" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#faf9f7" media="(prefers-color-scheme: light)" />
+
+    <!-- Static fallbacks. React 19 hoists per-route <title>/<meta> from the
+         component tree, but these are in the initial HTML response, so a
+         crawler has the name, role and description before any JavaScript runs. -->
+    <title>Shailesh Sangle — Senior Frontend Engineer (React, TypeScript, Next.js)</title>
+    <meta
+      name="description"
+      content="Shailesh Sangle — Senior Frontend Engineer with 5+ years building scalable React, Redux and TypeScript applications across healthcare and e-commerce. Analytics dashboards, API security, and page-load optimization."
+    />
+    <meta name="author" content="Shailesh Sangle" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Shailesh Sangle — Senior Frontend Engineer" />
+    <meta
+      property="og:description"
+      content="5+ years building data-heavy React interfaces. Analytics dashboards, an end-to-end API encryption layer, and the performance work that keeps them fast."
+    />
+    <meta property="og:locale" content="en_GB" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- crossorigin is required on the gstatic preconnect; without it the
+         browser opens a second connection and the hint is wasted. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Two variable families, weight ranges only, no italics — one request
+         each instead of a static file per weight. -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400..600&family=JetBrains+Mono:wght@400..500&display=swap"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>
+      <div style="max-width: 42rem; margin: 3rem auto; padding: 0 1.25rem; font-family: system-ui, sans-serif; line-height: 1.6;">
+        <h1>Shailesh Sangle — Senior Frontend Engineer</h1>
+        <p>5+ years building React, Redux and TypeScript applications across healthcare and e-commerce — analytics dashboards with Highcharts, an end-to-end API encryption layer, local-storage caching, and Next.js SSR.</p>
+        <p>This portfolio needs JavaScript for navigation. You can still reach me directly:</p>
+        <ul>
+          <li>Email: <a href="mailto:sangleshailesh30@gmail.com">sangleshailesh30@gmail.com</a></li>
+          <li>Phone: <a href="tel:+919821213016">+91 98212 13016</a></li>
+        </ul>
+      </div>
+    </noscript>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

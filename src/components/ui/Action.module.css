@@ -1,0 +1,107 @@
+.action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  /* 44px minimum touch target. */
+  min-height: 2.75rem;
+  padding: 0.5rem 1rem;
+  font-size: var(--fs-small);
+  font-weight: var(--weight-medium);
+  letter-spacing: -0.005em;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition:
+    background-color var(--dur-ui) var(--ease-out-quad),
+    border-color var(--dur-ui) var(--ease-out-quad),
+    color var(--dur-ui) var(--ease-out-quad),
+    transform var(--dur-micro) var(--ease-out-quad);
+}
+
+/* Press feedback at 0.97 — a scale that registers without being a bounce.
+   Applied on :active only, so it never fires for a keyboard activation. */
+.action:active {
+  transform: scale(0.97);
+}
+
+.icon {
+  flex: none;
+  transition: transform var(--dur-micro) var(--ease-out-quad);
+}
+
+.label {
+  min-width: 0;
+}
+
+/* ── Variants ─────────────────────────────────────────────────────────────
+   Exactly one solid action per view. Two equally-weighted buttons halve each
+   other; the secondary route is always an outline or a text link. */
+.solid {
+  background: var(--accent-solid);
+  color: var(--accent-on-solid);
+  border-color: var(--accent-solid);
+  font-weight: var(--weight-semibold);
+}
+
+.outline {
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+  background: transparent;
+}
+
+.ghost {
+  color: var(--text-secondary);
+  background: transparent;
+}
+
+.text {
+  color: var(--accent);
+  background: transparent;
+  border: none;
+  padding-inline: 0;
+  min-height: auto;
+}
+
+/* Hover is gated on a real hovering pointer. Gating by width instead means a
+   1280px touchscreen laptop gets sticky hover states it can never clear. */
+@media (hover: hover) and (pointer: fine) {
+  .solid:hover {
+    background: color-mix(in srgb, var(--accent-solid) 88%, #fff);
+    border-color: color-mix(in srgb, var(--accent-solid) 88%, #fff);
+  }
+
+  .outline:hover {
+    border-color: var(--accent-line);
+    background: var(--accent-tint);
+    color: var(--accent);
+  }
+
+  .ghost:hover {
+    color: var(--text-primary);
+    background: var(--surface-raised);
+  }
+
+  .text:hover {
+    color: var(--text-primary);
+  }
+
+  .action:hover .icon {
+    transform: translateX(2px);
+  }
+}
+
+/* Every hover state has a focus-visible twin. Focus styling that is weaker than
+   hover is one of the most common accessibility regressions in polished UI. */
+.solid:focus-visible {
+  background: color-mix(in srgb, var(--accent-solid) 88%, #fff);
+}
+
+.outline:focus-visible {
+  border-color: var(--accent-line);
+  background: var(--accent-tint);
+}
+
+.ghost:focus-visible {
+  background: var(--surface-raised);
+}

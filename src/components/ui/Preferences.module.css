@@ -1,0 +1,49 @@
+.group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: max(2.5rem, var(--tap-min));
+  height: max(2.5rem, var(--tap-min));
+  color: var(--text-muted);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  transition:
+    color var(--dur-ui) var(--ease-out-quad),
+    background-color var(--dur-ui) var(--ease-out-quad),
+    border-color var(--dur-ui) var(--ease-out-quad);
+}
+
+.active {
+  color: var(--accent);
+  border-color: var(--accent-line);
+  background: var(--accent-tint);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button:hover {
+    color: var(--text-primary);
+    background: var(--surface-raised);
+    border-color: var(--border-subtle);
+  }
+
+  .active:hover {
+    color: var(--accent);
+  }
+}
+
+.button:focus-visible {
+  color: var(--text-primary);
+}
+
+/* Compact only where a mouse makes it comfortable. On a coarse pointer the
+   token floors it back at 44px. */
+.compact .button {
+  width: var(--tap-min);
+  height: var(--tap-min);
+}

@@ -1,0 +1,227 @@
+.rail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-7);
+  padding-block: var(--space-8) var(--space-5);
+}
+
+.identity {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-size: var(--fs-display);
+  line-height: var(--lh-display);
+  letter-spacing: var(--track-display);
+  color: var(--text-primary);
+  /* Never split into per-character spans for an animation. This is the string
+     most likely to be searched, copied or read aloud, and character splitting
+     breaks find-in-page, selection and every screen reader tested. */
+}
+
+.title {
+  margin-top: var(--space-3);
+  font-size: var(--fs-h3);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--track-h3);
+  color: var(--text-primary);
+  /* Breaks as "Senior Frontend / Engineer" rather than orphaning "Engineer". */
+  text-wrap: balance;
+}
+
+.micro {
+  margin-top: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-meta);
+  letter-spacing: var(--track-mono-meta);
+  color: var(--accent);
+}
+
+.positioning {
+  margin-top: var(--space-5);
+  max-width: 34ch;
+  font-size: var(--fs-body);
+  color: var(--text-secondary);
+}
+
+/* ── Section nav ─────────────────────────────────────────────────────────── */
+.nav {
+  display: none;
+  margin-top: var(--space-9);
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding-block: var(--space-2);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-label);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--track-mono-label);
+  text-transform: uppercase;
+  transition: color var(--dur-ui) var(--ease-out-quad);
+}
+
+.navRule {
+  width: 2rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.5;
+  transition:
+    width var(--dur-ui) var(--ease-out-cubic),
+    opacity var(--dur-ui) var(--ease-out-quad);
+}
+
+/* The active state changes rule length, colour AND weight. WCAG 1.4.11 needs
+   3:1 between active and inactive, and colour alone does not carry it. */
+.navLinkActive {
+  color: var(--text-primary);
+  font-weight: var(--weight-semibold);
+}
+
+.navLinkActive .navRule {
+  width: 4rem;
+  opacity: 1;
+  background: var(--accent);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .navLink:hover {
+    color: var(--text-primary);
+  }
+
+  .navLink:hover .navRule {
+    width: 4rem;
+    opacity: 1;
+  }
+}
+
+/* Every hover transition has a focus twin. */
+.navLink:focus-visible {
+  color: var(--text-primary);
+}
+
+.navLink:focus-visible .navRule {
+  width: 4rem;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navRule {
+    transition: none;
+  }
+}
+
+/* ── Footer zone ─────────────────────────────────────────────────────────── */
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.contactList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.contactLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--tap-min);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-meta);
+  letter-spacing: var(--track-mono-meta);
+  color: var(--text-muted);
+  transition: color var(--dur-ui) var(--ease-out-quad);
+}
+
+.contactText {
+  /* A 26-character email at 13px fits 320px, but wrap anywhere rather than
+     trusting that a future longer address will. */
+  overflow-wrap: anywhere;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .contactLink:hover {
+    color: var(--accent);
+  }
+}
+
+.contactLink:focus-visible {
+  color: var(--accent);
+}
+
+.prefsRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* Below the rail breakpoint the mobile bar already carries the theme and
+   motion controls. Rendering them here as well would duplicate them on screen
+   and put each one in the tab order twice. */
+.prefs {
+  display: none;
+}
+
+@media (min-width: 64em) {
+  .prefs {
+    display: block;
+  }
+}
+
+.availability {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-label);
+  letter-spacing: var(--track-mono-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* Static, not pulsing. The animated "available for work" dot is thoroughly
+   overdone and the motion buys nothing. */
+.availabilityDot {
+  width: 6px;
+  height: 6px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* ── Desktop: the rail becomes sticky ────────────────────────────────────── */
+@media (min-width: 64em) {
+  .rail {
+    position: sticky;
+    top: 0;
+    max-height: 100vh;
+    width: var(--rail-width);
+    justify-content: space-between;
+    padding-block: var(--space-11);
+  }
+
+  .nav {
+    display: block;
+  }
+
+  .name {
+    font-size: clamp(2.75rem, 1.6rem + 2.2vw, 3.5rem);
+  }
+}

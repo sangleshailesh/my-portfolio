@@ -1,0 +1,170 @@
+.section {
+  padding-block: var(--space-8) var(--space-10);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+/* Single column by default. The date rail only appears once there is room for
+   it — no vertical connector, no dot column, nothing that can overflow. */
+.item {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.period {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.periodText {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-label);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: var(--track-mono-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.currentTag {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: var(--track-mono-label);
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-tint);
+  border: 1px solid var(--accent-line);
+  border-radius: var(--radius-pill);
+  padding: 0.125rem 0.5rem;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.role {
+  font-size: var(--fs-h3);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--track-h3);
+  color: var(--text-primary);
+}
+
+.at {
+  color: var(--text-muted);
+  font-weight: var(--weight-regular);
+}
+
+.company {
+  font-weight: var(--weight-medium);
+}
+
+.domain {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-label);
+  letter-spacing: var(--track-mono-label);
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.summary {
+  max-width: var(--measure);
+  color: var(--text-secondary);
+}
+
+.highlights {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-block: var(--space-2);
+}
+
+.highlight {
+  position: relative;
+  max-width: var(--measure);
+  padding-left: var(--space-5);
+  font-size: var(--fs-small);
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+/* A hairline marker rather than a bullet glyph — it aligns to the cap height
+   and cannot be selected or read aloud as punctuation. */
+.highlight::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: var(--space-3);
+  height: 1px;
+  background: var(--accent-line);
+}
+
+.impact {
+  display: block;
+  color: var(--text-primary);
+  font-weight: var(--weight-semibold);
+  font-size: var(--fs-body);
+  letter-spacing: -0.01em;
+}
+
+.detail {
+  display: block;
+}
+
+/* ── Education ───────────────────────────────────────────────────────────── */
+.education {
+  margin-top: var(--space-9);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.educationTitle {
+  margin-bottom: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-label);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--track-mono-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.educationBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.educationDegree {
+  color: var(--text-primary);
+  font-weight: var(--weight-medium);
+}
+
+.educationMeta {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-meta);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+}
+
+/* The date rail appears only when the measure can afford it. */
+@media (min-width: 40em) {
+  .item {
+    grid-template-columns: 9.5rem 1fr;
+    column-gap: var(--space-6);
+  }
+
+  .period {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 0.35rem;
+  }
+}
